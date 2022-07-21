@@ -10,8 +10,8 @@ static const int usealtbar          = 1;        /* 1 means use non-dwm status ba
 static const char *altbarclass      = "Polybar"; /* Alternate bar class name */
 static const char *alttrayname      = "tray";    /* Polybar tray instance name */
 static const char *altbarcmd        = "~/.config/polybar/launch.sh"; /* Alternate bar launch command */
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]          = { "Iosevka:size=12" };
+static const char dmenufont[]       = "Iosevka:size=12";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -44,17 +44,19 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class          	       instance         title           tags mask       isfloating       monitor */
-	{ "Gimp",	  	       NULL,		NULL,		0,		1,	         -1 },
-	{ "firefoxdeveloperedition",  "Places",	       "Library",	0,		1,		 -1 },
-	{ "qBittorrent",  	       NULL,		NULL,		0,		1,	         -1 },
-	{ "mullvad-vpn",  	       NULL,		NULL,		0,		1,	         -1 },
-	{ "Pcmanfm",	  	       NULL,		NULL,		0,		1,	         -1 },
-	{ "generic",	  	      "haruna",		NULL,		0,		1,	         -1 },
-	{ "virt-manager", 	       NULL,		NULL,		0,		1,	         -1 },
-	{ NULL,		    	      "spspot",		NULL,		SPTAG(0),	1,		 -1 },
-	{ NULL,		              "spfm",		NULL,		SPTAG(1),	1,		 -1 },
-	{ NULL,		              "spnote",	        NULL,		SPTAG(2),	1,		 -1 },
+	/* class          	        instance         title          tags mask       isfloating       monitor */
+	{ "Gimp",	  	        NULL,		 NULL,		0,		1,	         -1 },
+	{ "firefox-developer-edition", "Places",        "Library",	0,		1,		 -1 },
+	{ "qBittorrent",  	        NULL,		 NULL,		0,		1,	         -1 },
+	{ "mullvad-vpn",  	        NULL,		 NULL,		0,		1,	         -1 },
+	{ "Pcmanfm",	  	        NULL,		 NULL,		0,		1,	         -1 },
+	{ "generic",	  	       "haruna",	 NULL,		0,		1,	         -1 },
+	{ "virt-manager", 	        NULL,		 NULL,		0,		1,	         -1 },
+	{ "xarchiver",  	        NULL,		 NULL,		0,		1,	         -1 },
+	{ "imv",         	        NULL,		 NULL,		0,		1,	         -1 },
+	{ NULL,		    	       "spspot",	 NULL,		SPTAG(0),	1,		 -1 },
+	{ NULL,		               "spfm",		 NULL,		SPTAG(1),	1,		 -1 },
+	{ NULL,		               "spnote",	 NULL,		SPTAG(2),	1,		 -1 },
 };
 
 /* layout(s) */
@@ -96,7 +98,8 @@ static const char *fmcmd[]    = { "pcmanfm", NULL };
 static const char *qbitcmd[]  = { "qbittorrent", NULL };
 static const char *gamecmd[]  = { "pegasus-fe", NULL };
 static const char *vmcmd[]    = { "virt-manager", NULL };
-static const char *boorucmd[] = { "hydrus-client", NULL };
+static const char *boorucmd[] = { "Grabber", NULL };
+static const char *coomcmd[]  = { "YACReaderLibrary", NULL };
 
 
 static Key keys[] = {
@@ -109,8 +112,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_g,      			spawn,          {.v = gamecmd } },
 	{ MODKEY,                       XK_v,      			spawn,          {.v = vmcmd } },
 	{ MODKEY,                       XK_b,      			spawn,          {.v = boorucmd } },
+	{ MODKEY,                       XK_c,      			spawn,          {.v = coomcmd } },
 	{ MODKEY,                       XK_t,      			spawn,          SHCMD("~/.dwm/tor.sh") },
 	{ MODKEY,                       XK_z,      			spawn,          SHCMD("~/.dwm/libre.sh") },
+	{ MODKEY|ALT,                   XK_b,      			spawn,          SHCMD("~/.config/polybar/launch.sh") },
 	{ MODKEY|CTRL,                  XK_b,      			togglebar,      {0} },
 	{ MODKEY,                       XK_j,      			focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      			focusstack,     {.i = -1 } },
@@ -129,14 +134,14 @@ static Key keys[] = {
 	{ MODKEY|CTRL,                  XK_space,  			togglefloating, {0} },
 	{ MODKEY|CTRL,                  XK_m,      			togglemaximize, {0} },
 	{ MODKEY,                       XK_0,      			view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      			tag,            {.ui = ~0 } },
+	{ MODKEY|SHIFT,                 XK_0,      			tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  			focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, 			focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  			tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, 			tagmon,         {.i = +1 } },
+	{ MODKEY|SHIFT,                 XK_comma,  			tagmon,         {.i = -1 } },
+	{ MODKEY|SHIFT,                 XK_period, 			tagmon,         {.i = +1 } },
 	{ MODKEY,                       XK_minus,  			setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  			setgaps,        {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_equal,  			setgaps,        {.i = 0  } },
+	{ MODKEY|SHIFT,                 XK_equal,  			setgaps,        {.i = 0  } },
 	{ MODKEY,          		XK_s,  	   			togglescratch,  {.ui = 0 } },
 	{ MODKEY,            		XK_r,	   			togglescratch,  {.ui = 1 } },
 	{ MODKEY,            		XK_n,	   			togglescratch,  {.ui = 2 } },
